@@ -37,6 +37,12 @@ BEGIN
   );
 END;
 $$ LANGUAGE plpgsql;
+
+-- 赋予 service_role 对 keepalive 表的所有权限
+GRANT ALL ON TABLE public.keepalive TO service_role;
+
+-- 赋予 service_role 使用自增 ID 发号器的权限
+GRANT USAGE, SELECT ON SEQUENCE public.keepalive_id_seq TO service_role;
 ```
 
 
@@ -50,7 +56,7 @@ fork后 ，在仓库设置中添加以下 Secrets：
 点击 New repository secret
 添加以下两个 secrets：
 SUPABASE_URL	你的 Supabase 项目 URL（例如：https://xxx.supabase.co）
-SUPABASE_KEY	你的 Supabase Service Role Key（以 sb_secret_ 开头）
+SUPABASE_KEY	你的 Supabase Service Role Key（以 eyJ 开头）
 ```
 <img width="1660" height="875" alt="image" src="https://github.com/user-attachments/assets/71057109-4098-430c-a664-07be975ecd90" />
 
